@@ -14,11 +14,10 @@ import UsageDataRepository from "./repositories/usageDataRepository";
         const webCrawler = new HackerNewsWebCrawler(news);
 
         webCrawler.printNews();
-        const filterType = FilterType.NONE;
-        const newsCount = webCrawler.printNewsFiltered(filterType);
+        const filterType = FilterType.FIVE_OR_LESS_WORDS;
+        const newsCount = webCrawler.printNewsFilteredByTitle(filterType);
 
         await usageDataRepository.saveUsageData(filterType, newsCount);
-        console.log("\n\n ====== Data saved !!");
         const usageDatas = await usageDataRepository.getUsageData();
         console.log(usageDatas);
     } catch (error) {
