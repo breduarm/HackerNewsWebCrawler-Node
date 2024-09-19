@@ -17,6 +17,7 @@ To install and set up the project, follow the steps below.
 ### Prerequisites
 
 - **Node.js** (v16 or later)
+- **TypeScript** (5.6.2 or later)
 
 ### Steps
 
