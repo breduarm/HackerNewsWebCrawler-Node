@@ -8,23 +8,22 @@ class HackerNewsWebCrawler {
         this.news = news;
     }
 
-    printNews() {
-        console.info("============ News extrated data ============");
-        console.info(this.news);
-    }
-
     printNewsFilteredByTitle(filterType: FilterType): number {
-        console.info("============ News filtered data ============");
+        console.info("==========================================================================");
+        console.info(`============ News filtered data | Filter type : ${filterType} ============`);
+        console.info("==========================================================================");
         let filteredNews: News[];
 
         if (filterType == FilterType.NONE) {
             filteredNews = this.news;
         } else if (filterType == FilterType.MORE_THAN_FIVE_WORDS) {
-            filteredNews = this.news.filter(n => this.countWords(n.title) > 5)
-            .sort((a, b) => b.commentsCount - a.commentsCount);
+            filteredNews = this.news
+                .filter((n) => this.countWords(n.title) > 5)
+                .sort((a, b) => b.commentsCount - a.commentsCount);
         } else if (filterType == FilterType.FIVE_OR_LESS_WORDS) {
-            filteredNews = this.news.filter(n => this.countWords(n.title) <= 5)
-            .sort((a, b) => b.points - a.points);
+            filteredNews = this.news
+                .filter((n) => this.countWords(n.title) <= 5)
+                .sort((a, b) => b.points - a.points);
         } else {
             throw new Error(`Invalid filter type: ${filterType}`);
         }
@@ -34,8 +33,9 @@ class HackerNewsWebCrawler {
     }
 
     private countWords(statement: string) {
-        const statementFormatted = statement.replace(/[^a-zA-Z\s]/g, '');
-        return statementFormatted.split(/\s+/).filter(word => word.length > 0).length;
+        const statementFormatted = statement.replace(/[^a-zA-Z\s]/g, "");
+        return statementFormatted.split(/\s+/).filter((word) => word.length > 0)
+            .length;
     }
 }
 

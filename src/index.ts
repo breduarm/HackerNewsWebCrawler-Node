@@ -1,25 +1,19 @@
 import mongooseConnection from "./config/dbConfig";
+import NewsController from "./controllers/newsController";
 import { FilterType } from "./domain/enums/filterType";
-import HackerNewsWebCrawler from "./domain/webCrawler";
-import HackerNewsRepository from "./repositories/hackerNewsRepository";
-import UsageDataRepository from "./repositories/usageDataRepository";
 
 (async () => {
     try {
-        mongooseConnection();
+        await mongooseConnection();
 
-        const usageDataRepository = new UsageDataRepository();
-        const hackerNewsrepository = new HackerNewsRepository();
-        const news = await hackerNewsrepository.extractNews();
-        const webCrawler = new HackerNewsWebCrawler(news);
+        const newsController = new NewsController();
+        await newsController.webCrawlerReady;
 
-        webCrawler.printNews();
-        const filterType = FilterType.FIVE_OR_LESS_WORDS;
-        const newsCount = webCrawler.printNewsFilteredByTitle(filterType);
-
-        await usageDataRepository.saveUsageData(filterType, newsCount);
-        const usageDatas = await usageDataRepository.getUsageData();
-        console.log(usageDatas);
+        await newsController.printAndSaveNewsFiltered(FilterType.NONE);
+        await newsController.printAndSaveNewsFiltered(FilterType.MORE_THAN_FIVE_WORDS);
+        await newsController.printAndSaveNewsFiltered(FilterType.FIVE_OR_LESS_WORDS);
+        
+        newsController.printUsageDataSaved();
     } catch (error) {
         console.error(`[Error] ${error}`);
     }
