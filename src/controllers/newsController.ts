@@ -3,6 +3,12 @@ import HackerNewsWebCrawler from "../domain/webCrawler";
 import HackerNewsRepository from "../repositories/hackerNewsRepository";
 import UsageDataRepository from "../repositories/usageDataRepository";
 
+/**
+ * The NewsController class manages the flow of news data and interaction with the web crawler.
+ * It initializes the HackerNewsWebCrawler by fetching news from the repository and allows
+ * for printing filtered news and saving usage data. Additionally, it provides functionality
+ * to print previously saved usage data.
+ */
 class NewsController {
     webCrawlerReady: Promise<void>;
     private webCrawler: HackerNewsWebCrawler = new HackerNewsWebCrawler([]);
