@@ -19,6 +19,8 @@ import UsageDataRepository from "./repositories/usageDataRepository";
 
         await usageDataRepository.saveUsageData(filterType, newsCount);
         console.log("\n\n ====== Data saved !!");
+        const usageDatas = await usageDataRepository.getUsageData();
+        console.log(usageDatas);
     } catch (error) {
         console.error(`[Error] ${error}`);
     }
