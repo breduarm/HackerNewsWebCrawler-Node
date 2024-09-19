@@ -7,7 +7,7 @@ import HackerNewsRepository from "./repositories/hackerNewsRepository";
         const news = await repository.extractNews();
         const webCrawler = new HackerNewsWebCrawler(news);
 
-        webCrawler.printNews()
+        webCrawler.printNews();
     } catch (error) {
         console.error(`[Error] ${error}`);
     }

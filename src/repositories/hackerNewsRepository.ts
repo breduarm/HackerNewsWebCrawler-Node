@@ -11,30 +11,30 @@ class HackerNewsRepository {
         const $ = cheerio.load(html);
         const news: News[] = [];
 
-        const athingList =
-            $(".athing").length >= 30
-                ? $(".athing").slice(0, envConfig.maxEntries)
-                : $(".athing");
+        $(".athing")
+            .slice(0, envConfig.maxEntries)
+            .each((_, element) => {
+                const rank: number = Number(
+                    $(element).find(".rank").text().replace(".", "")
+                );
+                const title: string = $(element).find(".titleline").text();
+                const subtextElement = $(element).next().find(".subtext");
+                const points: number = Number(
+                    $(subtextElement)
+                        .find(".score")
+                        .text()
+                        .replace(" points", "")
+                );
+                const lastTagAText: string = $(subtextElement)
+                    .find("a")
+                    .last()
+                    .text();
+                const commentsCount: number = lastTagAText.includes("comments")
+                    ? Number(lastTagAText.replace("comments", "").trim())
+                    : 0;
 
-        athingList.each((element) => {
-            const rank: number = Number(
-                $(element).find(".rank").text().replace(".", "")
-            );
-            const title: string = $(element).find(".titleline").text();
-            const subtextElement = $(element).next().find(".subtext");
-            const points: number = Number(
-                $(subtextElement).find(".score").text().replace(" points", "")
-            );
-            const lastTagAText: string = $(subtextElement)
-                .find("a")
-                .last()
-                .text();
-            const commentsCount: number = lastTagAText.includes("comments")
-                ? Number(lastTagAText.replace("comments", "").trim())
-                : 0;
-
-            news.push({ rank, title, points, commentsCount });
-        });
+                news.push({ rank, title, points, commentsCount });
+            });
 
         return news;
     }

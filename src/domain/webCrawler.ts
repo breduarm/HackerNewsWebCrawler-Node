@@ -1,14 +1,14 @@
 import News from "../types/news";
 
 class HackerNewsWebCrawler {
-    news: News[];
+    private news: News[];
 
     constructor(news: News[]) {
         this.news = news;
     }
 
     printNews() {
-        console.info("====== News extrated ======")
+        console.info("============ News extrated data ============");
         console.info(this.news);
     }
 }
