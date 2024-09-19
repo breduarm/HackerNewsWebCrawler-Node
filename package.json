@@ -1,0 +1,20 @@
+{
+  "name": "hackernewswebcrawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.35",
+    "typescript": "^5.6.2"
+  }
+}
